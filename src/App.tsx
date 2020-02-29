@@ -1,25 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Provider } from "react-redux";
+import { ThemeProvider } from "styled-components";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import TicketDetails from "./components/TicketDetails";
+import TicketList from "./components/TicketList";
+import Layout from "./components/Layout";
+import theme from "./theme";
+import initStore from "./store";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={initStore()}>
+      <ThemeProvider theme={theme}>
+        <Router>
+          <Layout>
+            <Switch>
+              <Route path="/:id" exact>
+                <TicketDetails />
+              </Route>
+              <Route path="/" exact>
+                <TicketList />
+              </Route>
+            </Switch>
+          </Layout>
+        </Router>
+      </ThemeProvider>
+    </Provider>
   );
 }
 
