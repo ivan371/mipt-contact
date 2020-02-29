@@ -10,6 +10,7 @@ export default async (
   if (token) {
     headers.Authorization = `Bearer ${token}`;
   }
+
   const response = await fetch(`${BASE_URL}${url}`, {
     ...params,
     headers: {

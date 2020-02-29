@@ -30,19 +30,11 @@ export const CommentsWrapper = styled.div`
   }
 `;
 
-export const Footer = styled.div`
-  border-top: 1px solid ${({ theme }) => theme.palette.light};
-  padding-top: 8px;
-  display: flex;
-  align-items: center;
-  & > * + * {
-    margin-left: 8px;
-  }
-`;
-
 export const ActionWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  align-self: flex-end;
+  width: 140px;
   & > * + * {
     margin-top: 8px;
   }

@@ -6,10 +6,12 @@ interface ITicket {
   description: string;
   category: string;
   author: IUser;
-  status: string;
+  status: "OPEN" | "CLOSED" | "IN_PROGRESS" | "RESOLVE";
   assignee?: IUser;
-  comments: IComment[];
+  comments: string[];
   likesCount?: number;
+  likedByCurrentUser?: boolean;
+  isPrivate: boolean;
 }
 
 interface IUser {
@@ -27,4 +29,13 @@ interface ITicketState {
   isLoading: boolean;
   ticketList: string[];
   tickets: { [key: string]: ITicket };
+}
+
+interface ICommentState {
+  comments: { [key: string]: IComment };
+}
+
+interface IState {
+  ticket: ITicketState;
+  comment: ICommentState;
 }

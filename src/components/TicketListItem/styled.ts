@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Label } from "../styled";
 
 export const Wrapper = styled.div`
   padding: 16px;
@@ -24,12 +25,7 @@ export const Main = styled.div`
   justify-content: space-between;
 `;
 
-export const Footer = styled.div`
-  border-top: 1px solid ${({ theme }) => theme.palette.light};
-  padding-top: 8px;
-  display: flex;
-  align-items: center;
-  & > * + * {
-    margin-left: 8px;
-  }
+export const ActionLabel = styled(Label)`
+  width: 140px;
+  align-self: flex-end;
 `;

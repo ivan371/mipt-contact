@@ -1,42 +1,57 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import * as S from "./styled";
-import { Section, Paragraph, Label } from "../styled";
-import favorite from "../../assets/favorite.svg";
-import comment from "../../assets/comment.svg";
+import { Section, Paragraph } from "../styled";
+import TicketFooter from "../TicketFooter";
+import { statuses } from "../../constants";
 
 export interface ITicketListItemProps {
   ticket: ITicket;
 }
 
 const TicketListItem: React.FC<ITicketListItemProps> = ({ ticket }) => {
+  const {
+    id,
+    title,
+    category,
+    description,
+    status,
+    author,
+    assignee,
+    likesCount,
+    likedByCurrentUser,
+    comments = []
+  } = ticket;
+
+  const statusLabel = statuses[status];
+
   return (
     <Section>
-      <Link to={`/${ticket.id}`}>
+      <Link to={`/${id}`}>
         <S.Inner>
           <S.Main>
-            <S.Title>{ticket.title}</S.Title>
-            <Paragraph>{ticket.category}</Paragraph>
-            <Paragraph>{ticket.description}</Paragraph>
+            <S.Title>{title}</S.Title>
+            <Paragraph>{category}</Paragraph>
+            <Paragraph>{description}</Paragraph>
           </S.Main>
           <S.Main>
-            <Label>
-              <Paragraph>{ticket.status}</Paragraph>
-            </Label>
+            {statusLabel && (
+              <S.ActionLabel>
+                <Paragraph>{statusLabel}</Paragraph>
+              </S.ActionLabel>
+            )}
             <div>
-              <Paragraph>Автор: {ticket.author.name}</Paragraph>
-              {ticket.assignee && (
-                <Paragraph>Исполнитель: {ticket.assignee.name}</Paragraph>
-              )}
+              {author && <Paragraph>Автор: {author.name}</Paragraph>}
+              {assignee && <Paragraph>Исполнитель: {assignee.name}</Paragraph>}
             </div>
           </S.Main>
         </S.Inner>
-        <S.Footer>
-          <img src={favorite} />
-          <Paragraph withoutSpace>{ticket.likesCount || 0}</Paragraph>
-          <img src={comment} />
-          <Paragraph withoutSpace>{ticket.comments.length}</Paragraph>
-        </S.Footer>
+        <TicketFooter
+          likesCount={likesCount}
+          comments={comments}
+          likedByCurrentUser={likedByCurrentUser}
+          ticketId={id!}
+        />
       </Link>
     </Section>
   );

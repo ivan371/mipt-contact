@@ -29,7 +29,7 @@ const Header: React.FC = () => {
         isOpen={isOpenTicketForm}
         toggleModal={() => setIsOpenTicketForm(false)}
       >
-        <TicketForm />
+        <TicketForm onClose={() => setIsOpenTicketForm(false)} />
       </Modal>
       <Modal
         isOpen={isOpenLogin}

@@ -55,3 +55,12 @@ export const Label = styled.div`
     font-weight: 400;
   }
 `;
+
+export const Select = styled.select`
+  min-width: 320px;
+  height: 32px;
+
+  option {
+    padding: 8px;
+  }
+`;

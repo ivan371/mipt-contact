@@ -4,10 +4,12 @@ import * as S from "./styled";
 export interface IInputProps {
   isTextarea?: boolean;
   fullWidth?: boolean;
+  value?: string;
+  onChange?: (value: string) => void;
 }
 
 const Input: React.FC<IInputProps> = props => {
-  const { isTextarea, ...otherProps } = props;
+  const { isTextarea, onChange, ...otherProps } = props;
   const [isFocus, setIsFocus] = React.useState(false);
 
   const onFocus = () => {
@@ -18,11 +20,16 @@ const Input: React.FC<IInputProps> = props => {
     setIsFocus(false);
   };
 
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    onChange!(event.target.value);
+  };
+
   const Component = isTextarea ? (S.Textarea as any) : S.Input;
 
   return (
     <Component
       {...otherProps}
+      onChange={handleChange}
       onFocus={onFocus}
       onBlur={onBlur}
       isFocus={isFocus}

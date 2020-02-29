@@ -1,11 +1,13 @@
 import { normalize, schema } from "normalizr";
 
-const ticketSchema = new schema.Entity("ticket");
+import { commentSchema } from "./comment";
+
+const ticketSchema = new schema.Entity("ticket", { comments: [commentSchema] });
 
 export function ticketsNormalize(tickets: ITicket[]) {
   return normalize(tickets, [ticketSchema]);
 }
 
-export function tickettNormalize(tickets: ITicket) {
+export function ticketNormalize(tickets: ITicket) {
   return normalize(tickets, ticketSchema);
 }

@@ -22,3 +22,18 @@ export const InputWrapper = styled.div`
     margin-left: 32px;
   }
 `;
+
+export const RadioWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+`;
+
+export const Label = styled.label`
+  display: flex;
+  align-items: center;
+
+  & > * + * {
+    margin-left: 8px;
+  }
+`;
