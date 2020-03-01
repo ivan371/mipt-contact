@@ -1,12 +1,14 @@
 /// <reference types="react-scripts" />
 
+type IStatus = "OPEN" | "CLOSED" | "IN_PROGRESS" | "RESOLVE";
+
 interface ITicket {
   id: string;
   title: string;
   description: string;
   category: string;
   author: IUser;
-  status: "OPEN" | "CLOSED" | "IN_PROGRESS" | "RESOLVE";
+  status: IStatus;
   assignee?: IUser;
   comments: string[];
   likesCount?: number;

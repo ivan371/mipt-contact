@@ -110,3 +110,31 @@ export function ticketLike({ ticketId }: ITicketLikeParams) {
     });
   };
 }
+
+interface ITicketNextActionParams {
+  ticketId: string;
+  status: IStatus;
+}
+
+export function ticketNextStatus({
+  ticketId,
+  status
+}: ITicketNextActionParams) {
+  return async (dispatch: Dispatch) => {
+    const data = await ApiClientService(
+      `ticketManagement/${ticketId}/changeStatus`,
+      {
+        method: "PUT",
+        body: JSON.stringify({ status }),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }
+    );
+
+    dispatch({
+      type: TICKET_GET_SUCCESS,
+      payload: ticketNormalize(data)
+    });
+  };
+}

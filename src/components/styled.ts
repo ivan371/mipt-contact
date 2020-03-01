@@ -48,6 +48,7 @@ export const Label = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 140px;
 
   & > ${Paragraph} {
     margin: 4px;
@@ -63,4 +64,11 @@ export const Select = styled.select`
   option {
     padding: 8px;
   }
+`;
+
+export const Title = styled.h3`
+  margin-top: 0;
+  color: ${({ theme }) => theme.palette.light};
+  font-family: "Roboto";
+  text-align: center;
 `;

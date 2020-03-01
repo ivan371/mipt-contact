@@ -7,12 +7,6 @@ export const Wrapper = styled.div`
   border: 1px solid ${({ theme }) => theme.palette.light};
 `;
 
-export const Title = styled.h3`
-  margin-top: 0;
-  color: ${({ theme }) => theme.palette.light};
-  font-family: "Roboto";
-`;
-
 export const Inner = styled.div`
   display: flex;
   justify-content: space-between;
