@@ -15,9 +15,13 @@ function App() {
         <Router>
           <Layout>
             <Switch>
+              <Route path="/my" exact>
+                <TicketList isCurrent />
+              </Route>
               <Route path="/:id" exact>
                 <TicketDetails />
               </Route>
+
               <Route path="/" exact>
                 <TicketList />
               </Route>

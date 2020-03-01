@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import * as S from "./styled";
 import { Section, Paragraph, Title } from "../styled";
 import TicketFooter from "../TicketFooter";
+import TicketUsers from "../TicketUsers";
 import { statuses } from "../../constants";
 
 export interface ITicketListItemProps {
@@ -41,10 +42,7 @@ const TicketListItem: React.FC<ITicketListItemProps> = ({ ticket }) => {
             <Paragraph>{description}</Paragraph>
           </S.Main>
           <S.Main>
-            <div>
-              {author && <Paragraph>Автор: {author.name}</Paragraph>}
-              {assignee && <Paragraph>Исполнитель: {assignee.name}</Paragraph>}
-            </div>
+            <TicketUsers author={author} assignee={assignee} />
           </S.Main>
         </S.Inner>
         <TicketFooter
@@ -53,6 +51,8 @@ const TicketListItem: React.FC<ITicketListItemProps> = ({ ticket }) => {
           likedByCurrentUser={likedByCurrentUser}
           ticketId={id!}
           creationTime={creationTime}
+          title={title}
+          description={description}
         />
       </Link>
     </Section>

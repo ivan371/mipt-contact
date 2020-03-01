@@ -5,12 +5,27 @@ import TicketListItem from "../TicketListItem";
 import Spinner from "../Spinner";
 import * as S from "./styled";
 
-const TicketList: React.FC = () => {
+interface ITicketListProps {
+  isCurrent?: boolean;
+}
+
+const TicketList: React.FC<ITicketListProps> = ({ isCurrent }) => {
   const dispatch = useDispatch();
 
+  const user = useSelector<IState, IAuthUser | undefined>(
+    state => state.user.user
+  );
+
+  const isAdmin = user ? user.role === "moderator" : false;
+  const isAuth = Boolean(window.localStorage.getItem("token"));
+
+  if (!isAuth && isCurrent) {
+    window.location.href = "/";
+  }
+
   React.useEffect(() => {
-    void dispatch(fetchTickets());
-  }, []);
+    void dispatch(fetchTickets({ isCurrent, isAdmin }));
+  }, [isCurrent, isAdmin]);
 
   const { ticketList, isLoading, tickets } = useSelector<IState, ITicketState>(
     state => {

@@ -64,7 +64,8 @@ const TicketDetails: React.FC = () => {
 
   const isAdmin = user ? user.role === "moderator" : false;
 
-  const isCurrentUser = user && ticket ? user.id === ticket.author.id : false;
+  const isCurrentUser =
+    user && ticket && ticket.author ? user.id === ticket.author.id : false;
 
   if (isLoading) {
     return <Spinner />;
@@ -145,6 +146,8 @@ const TicketDetails: React.FC = () => {
           likedByCurrentUser={likedByCurrentUser}
           ticketId={id!}
           creationTime={creationTime}
+          title={title}
+          description={description}
         />
       </Section>
       <Comments commentList={comments} />

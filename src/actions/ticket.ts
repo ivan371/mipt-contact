@@ -7,14 +7,29 @@ export const TICKETS_GET_SUCCESS = "TICKETS_GET_SUCCESS";
 export const TICKET_GET = "TICKET_GET";
 export const TICKET_GET_SUCCESS = "TICKET_GET_SUCCESS";
 
-export function fetchTickets() {
+interface IFetchTicketsParams {
+  isCurrent?: boolean;
+  isAdmin?: boolean;
+}
+
+export function fetchTickets({ isCurrent, isAdmin }: IFetchTicketsParams) {
   return async (dispatch: Dispatch) => {
     try {
       dispatch({
         type: TICKETS_GET
       });
 
-      const data = await ApiClientService("ticketManagement/");
+      let route = "ticketManagement/";
+
+      if (isCurrent) {
+        route = "ticketManagement?createdByCurrentUser=true";
+
+        if (isAdmin) {
+          route = "ticketManagement?assignedToCurrentUser=true";
+        }
+      }
+
+      const data = await ApiClientService(route);
 
       if (data && Array.isArray(data)) {
         dispatch({

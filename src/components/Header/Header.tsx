@@ -51,6 +51,11 @@ const Header: React.FC = () => {
         {!isAdmin && (
           <Button onClick={onTicketFormOpen}>Сообщить о проблеме</Button>
         )}
+        {isAuth && (
+          <Link to="/my">
+            <Button>Мои обращения</Button>
+          </Link>
+        )}
         {!isAuth && <Button onClick={() => setIsOpenLogin(true)}>Войти</Button>}
         {isAuth && (
           <S.User>
