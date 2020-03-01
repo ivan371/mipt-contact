@@ -72,7 +72,7 @@ export function ticketCreate({
 
     let data;
     if (isEdit) {
-      data = await ApiClientService(`ticketManagement/${ticketId}`, {
+      data = await ApiClientService(`ticketManagement/${ticketId}s`, {
         method: "put",
         body: formData
       });

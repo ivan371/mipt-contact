@@ -4,7 +4,7 @@ import { Section } from "../styled";
 import close from "../../assets/close.svg";
 
 interface IModalProps {
-  toggleModal: () => void;
+  toggleModal: (event?: any) => void;
   isOpen: boolean;
   modalStyles?: any;
 }
@@ -17,7 +17,7 @@ const Modal: React.FC<IModalProps> = props => {
   }
 
   return (
-    <S.Wrapper onClick={() => toggleModal()}>
+    <S.Wrapper onClick={event => toggleModal(event)}>
       <S.Inner
         onClick={event => event.stopPropagation()}
         modalStyles={modalStyles}

@@ -7,11 +7,17 @@ export interface ICommentProps {
 }
 
 const Comment: React.FC<ICommentProps> = ({ comment }) => {
+  const { body, author } = comment;
+  const isAdmin = author.role === "moderator";
+
   return (
     <Section>
       <S.Wrapper>
-        <Paragraph>{comment.body}</Paragraph>
-        <Paragraph>{comment.author.name}</Paragraph>
+        <Paragraph>{body}</Paragraph>
+        <S.Inner>
+          {isAdmin && <S.AdminLabel>adimin</S.AdminLabel>}
+          <Paragraph>{author.name}</Paragraph>
+        </S.Inner>
       </S.Wrapper>
     </Section>
   );

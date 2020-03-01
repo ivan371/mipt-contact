@@ -28,6 +28,9 @@ const TicketDetails: React.FC = () => {
   const [isOpenTicketForm, setIsOpenTicketForm] = React.useState(false);
   const [isOpenStatusModal, setIsOpenStatusModal] = React.useState(false);
   const dispatch = useDispatch();
+  const user = useSelector<IState, IAuthUser | undefined>(
+    state => state.user.user
+  );
 
   React.useEffect(() => {
     void dispatch(fetchTicket(id!));
@@ -48,6 +51,9 @@ const TicketDetails: React.FC = () => {
       isLoading
     };
   });
+
+  const isAdmin = user ? user.role === "moderator" : false;
+  const isCurrentUser = user && ticket ? user.id === ticket.author.id : false;
 
   if (isLoading) {
     return <Spinner />;
@@ -76,7 +82,13 @@ const TicketDetails: React.FC = () => {
 
   const statusLabel = statuses[status];
   const actionStatusText = getStatusActionText(status);
-  const isEditEnabled = status === "OPEN" || status === "RESOLVE";
+  const isUserActionsEnable =
+    isCurrentUser && (status === "OPEN" || status === "RESOLVE");
+  const isAdminActionEnable =
+    isAdmin && (status === "OPEN" || status === "IN_PROGRESS");
+
+  const isEditEnabled = !isAdmin && isUserActionsEnable;
+  const isChangeStatusEnabled = isAdminActionEnable || isUserActionsEnable;
 
   return (
     <React.Fragment>
@@ -94,7 +106,7 @@ const TicketDetails: React.FC = () => {
           </S.Main>
           <S.Main>
             <S.ActionWrapper>
-              {actionStatusText && (
+              {isChangeStatusEnabled && actionStatusText && (
                 <Button fullWidth onClick={() => setIsOpenStatusModal(true)}>
                   Сменить статус
                 </Button>

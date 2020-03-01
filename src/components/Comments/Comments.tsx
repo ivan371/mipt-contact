@@ -12,6 +12,9 @@ const Comments: React.FC<ICommentsProps> = ({ commentList }) => {
   const comments = useSelector<IState, ICommentState["comments"]>(
     state => state.comment.comments
   );
+
+  const isAuth = Boolean(window.localStorage.getItem("token"));
+
   if (!commentList) {
     return null;
   }
@@ -23,7 +26,7 @@ const Comments: React.FC<ICommentsProps> = ({ commentList }) => {
           <Comment key={commentId} comment={comments[commentId]} />
         ))}
       </React.Fragment>
-      <CommentForm />
+      {isAuth && <CommentForm />}
     </S.Wrapper>
   );
 };

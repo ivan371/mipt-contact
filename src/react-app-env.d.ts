@@ -21,16 +21,24 @@ interface IUser {
   name: string;
 }
 
+interface IAuthUser extends IUser {
+  role: string;
+}
+
 interface IComment {
   id: string;
   body: string;
-  author: IUser;
+  author: IAuthUser;
 }
 
 interface ITicketState {
   isLoading: boolean;
   ticketList: string[];
   tickets: { [key: string]: ITicket };
+}
+
+interface IUserState {
+  user?: IAuthUser;
 }
 
 interface ICommentState {
@@ -40,4 +48,5 @@ interface ICommentState {
 interface IState {
   ticket: ITicketState;
   comment: ICommentState;
+  user: IUserState;
 }

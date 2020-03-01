@@ -1,4 +1,7 @@
+import { Dispatch } from "redux";
 import ApiClientService from "../services/ApiClientService";
+
+export const CURRENT_USER_GET = "CURRENT_USER_GET";
 
 export interface IRegisterProps {
   login: string;
@@ -41,5 +44,18 @@ export function authenticate({ login, password }: ILoginProps) {
     });
 
     window.localStorage.setItem("token", token);
+  };
+}
+
+export function getCurrentUser() {
+  return async (dispatch: Dispatch) => {
+    try {
+      const data = await ApiClientService("security/currentUser");
+
+      dispatch({
+        type: CURRENT_USER_GET,
+        payload: data
+      });
+    } catch (err) {}
   };
 }
