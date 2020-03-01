@@ -13,7 +13,7 @@ export const Inner = styled.div`
   justify-content: space-between;
 
   & > *:first-child {
-    max-width: 360px;
+    max-width: 320px;
   }
 
   @media screen and (max-width: 800px) {
