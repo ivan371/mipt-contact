@@ -1,6 +1,8 @@
 import styled, { createGlobalStyle } from "styled-components";
 import background from "../../assets/background.jpg";
 
+const isAuth = Boolean(window.localStorage.getItem("token"));
+
 export const Wrapper = styled.div`
   max-width: 600px;
   margin: 64px auto 0;
@@ -9,7 +11,7 @@ export const Wrapper = styled.div`
   @media screen and (max-width: 800px) {
     flex-direction: column;
 
-    margin: 160px auto 0;
+    margin: ${isAuth ? "240" : "180"}px auto 0;
   }
 `;
 

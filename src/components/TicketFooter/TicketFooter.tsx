@@ -8,6 +8,7 @@ import favorite from "../../assets/favorite.svg";
 import favoriteBordered from "../../assets/favorite-border.svg";
 import comment from "../../assets/comment.svg";
 import { ticketLike } from "../../actions/ticket";
+import { formatTime } from "./utils";
 import * as S from "./styled";
 
 export interface ITicketFooterProps {
@@ -15,6 +16,7 @@ export interface ITicketFooterProps {
   comments: string[];
   likedByCurrentUser?: boolean;
   ticketId: string;
+  creationTime?: string;
 }
 
 const loginStyles = css`
@@ -22,7 +24,13 @@ const loginStyles = css`
 `;
 
 const TicketFooter: React.FC<ITicketFooterProps> = props => {
-  const { likesCount, comments, likedByCurrentUser, ticketId } = props;
+  const {
+    likesCount,
+    comments,
+    likedByCurrentUser,
+    ticketId,
+    creationTime
+  } = props;
   const [isOpenLogin, setIsOpenLogin] = React.useState(false);
 
   const dispatch = useDispatch();
@@ -58,6 +66,7 @@ const TicketFooter: React.FC<ITicketFooterProps> = props => {
         <Paragraph withoutSpace>{likesCount || 0}</Paragraph>
         <img src={comment} />
         <Paragraph withoutSpace>{comments ? comments.length : 0}</Paragraph>
+        {creationTime && <S.Date>{formatTime(creationTime)}</S.Date>}
       </S.Wrapper>
       <Modal
         isOpen={isOpenLogin}

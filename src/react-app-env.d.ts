@@ -14,6 +14,7 @@ interface ITicket {
   likesCount?: number;
   likedByCurrentUser?: boolean;
   isPrivate: boolean;
+  creationTime: string;
 }
 
 interface IUser {

@@ -21,7 +21,9 @@ const TicketForm: React.FC<ITicketFormProps> = props => {
   const [isPrivate, setIsPrivate] = React.useState(Boolean(props.isPrivate));
   const [title, setTitle] = React.useState(props.title || "");
   const [description, setDescription] = React.useState(props.description || "");
-  const [category, setCategory] = React.useState(props.category || "");
+  const [category, setCategory] = React.useState(
+    props.category || categories[0]
+  );
 
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -47,7 +49,7 @@ const TicketForm: React.FC<ITicketFormProps> = props => {
   return (
     <S.Wrapper>
       <S.InputWrapper>
-        <Paragraph>Название проблемы</Paragraph>
+        <Paragraph>Название обращения</Paragraph>
         <Input value={title} onChange={setTitle} />
       </S.InputWrapper>
       <S.InputWrapper>
@@ -73,7 +75,7 @@ const TicketForm: React.FC<ITicketFormProps> = props => {
               checked={!isPrivate}
               onClick={() => setIsPrivate(false)}
             />
-            <Paragraph>Публичная</Paragraph>
+            <Paragraph>Публичное</Paragraph>
           </S.Label>
           <S.Label>
             <input
@@ -81,13 +83,14 @@ const TicketForm: React.FC<ITicketFormProps> = props => {
               checked={isPrivate}
               onClick={() => setIsPrivate(true)}
             />
-            <Paragraph>Приватная</Paragraph>
+            <Paragraph>Приватное</Paragraph>
           </S.Label>
         </S.RadioWrapper>
       </S.InputWrapper>
       <S.InputWrapper>
         <Paragraph>
-          Публичная заявка будет видна всем пользователям, приватная только Вам
+          Публичное обращение будет видно всем пользователям, приватное только
+          Вам
         </Paragraph>
       </S.InputWrapper>
       <Button onClick={handleSave}>

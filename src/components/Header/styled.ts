@@ -23,3 +23,21 @@ export const Wrapper = styled.div`
     }
   }
 `;
+
+export const User = styled.div`
+  display: flex;
+  align-items: center;
+  @media screen and (max-width: 800px) {
+    flex-direction: column-reverse;
+    width: 100%;
+    & > * + * {
+      margin-top: 8px;
+    }
+  }
+  @media screen and (min-width: 800px) {
+    height: 32px;
+    & > * + * {
+      margin-left: 8px;
+    }
+  }
+`;

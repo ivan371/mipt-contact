@@ -20,6 +20,7 @@ const TicketListItem: React.FC<ITicketListItemProps> = ({ ticket }) => {
     assignee,
     likesCount,
     likedByCurrentUser,
+    creationTime,
     comments = []
   } = ticket;
 
@@ -51,6 +52,7 @@ const TicketListItem: React.FC<ITicketListItemProps> = ({ ticket }) => {
           comments={comments}
           likedByCurrentUser={likedByCurrentUser}
           ticketId={id!}
+          creationTime={creationTime}
         />
       </Link>
     </Section>

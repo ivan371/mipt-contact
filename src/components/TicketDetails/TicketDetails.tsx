@@ -77,7 +77,8 @@ const TicketDetails: React.FC = () => {
     likesCount,
     comments,
     isPrivate,
-    likedByCurrentUser
+    likedByCurrentUser,
+    creationTime
   } = ticket;
 
   const statusLabel = statuses[status];
@@ -128,6 +129,7 @@ const TicketDetails: React.FC = () => {
           comments={comments}
           likedByCurrentUser={likedByCurrentUser}
           ticketId={id!}
+          creationTime={creationTime}
         />
       </Section>
       <Comments commentList={comments} />

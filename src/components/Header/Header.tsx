@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { css } from "styled-components";
 import * as S from "./styled";
-import { Button } from "../styled";
+import { Button, Paragraph } from "../styled";
 import Modal from "../Modal";
 import TicketForm from "../TicketForm";
 import Login from "../Login";
@@ -52,7 +52,10 @@ const Header: React.FC = () => {
           <Button onClick={onTicketFormOpen}>Сообщить о проблеме</Button>
         )}
         {!isAuth && <Button onClick={() => setIsOpenLogin(true)}>Войти</Button>}
-        {isAuth && <Button onClick={onLogout}>Выйти</Button>}
+        <S.User>
+          {isAuth && user && user.name && <Paragraph>{user.name}</Paragraph>}
+          {isAuth && <Button onClick={onLogout}>Выйти</Button>}
+        </S.User>
       </S.Wrapper>
       <Modal
         isOpen={isOpenTicketForm}

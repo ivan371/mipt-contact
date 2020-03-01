@@ -15,7 +15,7 @@ const Comment: React.FC<ICommentProps> = ({ comment }) => {
       <S.Wrapper>
         <Paragraph>{body}</Paragraph>
         <S.Inner>
-          {isAdmin && <S.AdminLabel>adimin</S.AdminLabel>}
+          {isAdmin && <S.AdminLabel>admin</S.AdminLabel>}
           <Paragraph>{author.name}</Paragraph>
         </S.Inner>
       </S.Wrapper>
