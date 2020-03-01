@@ -111,6 +111,22 @@ export function ticketLike({ ticketId }: ITicketLikeParams) {
   };
 }
 
+export function ticketAssign({ ticketId }: ITicketLikeParams) {
+  return async (dispatch: Dispatch) => {
+    const data = await ApiClientService(`ticketManagement/${ticketId}/assign`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+
+    dispatch({
+      type: TICKET_GET_SUCCESS,
+      payload: ticketNormalize(data)
+    });
+  };
+}
+
 interface ITicketNextActionParams {
   ticketId: string;
   status: IStatus;

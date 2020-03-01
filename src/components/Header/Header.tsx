@@ -52,10 +52,12 @@ const Header: React.FC = () => {
           <Button onClick={onTicketFormOpen}>Сообщить о проблеме</Button>
         )}
         {!isAuth && <Button onClick={() => setIsOpenLogin(true)}>Войти</Button>}
-        <S.User>
-          {isAuth && user && user.name && <Paragraph>{user.name}</Paragraph>}
-          {isAuth && <Button onClick={onLogout}>Выйти</Button>}
-        </S.User>
+        {isAuth && (
+          <S.User>
+            {user && user.name && <Paragraph>{user.name}</Paragraph>}
+            {<Button onClick={onLogout}>Выйти</Button>}
+          </S.User>
+        )}
       </S.Wrapper>
       <Modal
         isOpen={isOpenTicketForm}

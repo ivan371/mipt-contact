@@ -2,13 +2,18 @@ import React from "react";
 import { css } from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { fetchTicket, ticketNextStatus } from "../../actions/ticket";
+import {
+  fetchTicket,
+  ticketNextStatus,
+  ticketAssign
+} from "../../actions/ticket";
 import Comments from "../Comments";
 import Spinner from "../Spinner";
 import TicketFooter from "../TicketFooter";
 import Modal from "../Modal";
 import TicketForm from "../TicketForm";
 import StatusChange from "../StatusChange";
+import TicketUsers from "../TicketUsers";
 import { Section, Paragraph, Label, Button, Title } from "../styled";
 import * as S from "./styled";
 import { getStatusActionText } from "./../../utils";
@@ -41,6 +46,11 @@ const TicketDetails: React.FC = () => {
     setIsOpenStatusModal(false);
   };
 
+  const onAssign = () => {
+    dispatch(ticketAssign({ ticketId: id! }));
+    dispatch(ticketNextStatus({ ticketId: id!, status: "IN_PROGRESS" }));
+  };
+
   const { isLoading, ticket } = useSelector<IState, IStateData>(state => {
     const { isLoading, tickets } = state.ticket;
 
@@ -53,6 +63,7 @@ const TicketDetails: React.FC = () => {
   });
 
   const isAdmin = user ? user.role === "moderator" : false;
+
   const isCurrentUser = user && ticket ? user.id === ticket.author.id : false;
 
   if (isLoading) {
@@ -81,15 +92,19 @@ const TicketDetails: React.FC = () => {
     creationTime
   } = ticket;
 
+  const isAssignToMe = user && assignee && user.id === assignee.id;
+
   const statusLabel = statuses[status];
   const actionStatusText = getStatusActionText(status);
   const isUserActionsEnable =
     isCurrentUser && (status === "OPEN" || status === "RESOLVE");
   const isAdminActionEnable =
-    isAdmin && (status === "OPEN" || status === "IN_PROGRESS");
+    isAdmin && isAssignToMe && (status === "OPEN" || status === "IN_PROGRESS");
 
   const isEditEnabled = !isAdmin && isUserActionsEnable;
-  const isChangeStatusEnabled = isAdminActionEnable || isUserActionsEnable;
+  const isChangeStatusEnabled =
+    isAdminActionEnable || (isCurrentUser && status === "RESOLVE");
+  const isAssignEnabled = isAdmin && status === "OPEN";
 
   return (
     <React.Fragment>
@@ -112,16 +127,16 @@ const TicketDetails: React.FC = () => {
                   Сменить статус
                 </Button>
               )}
+              {isAssignEnabled && (
+                <Button onClick={onAssign}>Рассмотреть</Button>
+              )}
               {isEditEnabled && (
                 <Button fullWidth onClick={() => setIsOpenTicketForm(true)}>
                   Редактировать
                 </Button>
               )}
             </S.ActionWrapper>
-            <div>
-              {author && <Paragraph>Автор: {author.name}</Paragraph>}
-              {assignee && <Paragraph>Исполнитель: {assignee.name}</Paragraph>}
-            </div>
+            <TicketUsers author={author} assignee={assignee} />
           </S.Main>
         </S.Inner>
         <TicketFooter

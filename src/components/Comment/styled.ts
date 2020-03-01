@@ -20,3 +20,9 @@ export const Inner = styled.div`
     white-space: nowrap;
   }
 `;
+
+export const UserName = styled(Paragraph)`
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
