@@ -1,6 +1,7 @@
 import React from "react";
 import * as S from "./styled";
 import { Section } from "../styled";
+import close from "../../assets/close.svg";
 
 interface IModalProps {
   toggleModal: () => void;
@@ -21,6 +22,9 @@ const Modal: React.FC<IModalProps> = props => {
         onClick={event => event.stopPropagation()}
         modalStyles={modalStyles}
       >
+        <S.Header onClick={() => toggleModal()}>
+          <img src={close} />
+        </S.Header>
         <Section>{children}</Section>
       </S.Inner>
     </S.Wrapper>

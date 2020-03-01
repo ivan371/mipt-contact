@@ -58,11 +58,19 @@ export const Label = styled.div`
 `;
 
 export const Select = styled.select`
-  min-width: 320px;
   height: 32px;
+  background-color: ${({ theme }) => theme.palette.white};
 
   option {
     padding: 8px;
+  }
+
+  @media screen and (min-width: 800px) {
+    min-width: 320px;
+  }
+
+  @media screen and (max-width: 800px) {
+    width: 100%;
   }
 `;
 

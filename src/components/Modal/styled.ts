@@ -1,4 +1,6 @@
 import styled, { keyframes } from "styled-components";
+import { rgba } from "polished";
+import { Section } from "../styled";
 
 const fade = keyframes`
   from {
@@ -33,12 +35,38 @@ export const Wrapper = styled.div`
   animation-duration: 0.5s;
 `;
 
+export const Header = styled.div`
+  height: 48px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex: 1;
+  padding: 6px;
+  @media screen and (min-width: 800px) {
+    display: none;
+  }
+`;
+
 export const Inner = styled.div<{ modalStyles: any }>`
   border-radius: 8px;
   background-color: white;
   cursor: auto;
   animation-name: ${rise};
   animation-duration: 0.3s;
-  min-width: 600px;
-  ${({ modalStyles }) => modalStyles};
+  @media screen and (max-width: 800px) {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: ${({ theme }) => rgba(theme.palette.content, 0.9)};
+    ${Section} {
+      height: calc(100vh - 48px);
+      padding: 16px;
+    }
+  }
+
+  @media screen and (min-width: 800px) {
+    min-width: 600px;
+    ${({ modalStyles }) => modalStyles};
+  }
 `;

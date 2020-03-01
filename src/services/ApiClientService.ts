@@ -5,10 +5,10 @@ export default async (
   params: RequestInit = {}
 ): Promise<any> => {
   const headers = {} as any;
-  const token = window.localStorage.getItem("access");
+  const token = window.localStorage.getItem("token");
 
   if (token) {
-    headers.Authorization = `Bearer ${token}`;
+    headers.Authorization = `${token}`;
   }
 
   const response = await fetch(`${BASE_URL}${url}`, {

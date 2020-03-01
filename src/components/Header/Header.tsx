@@ -16,15 +16,34 @@ const Header: React.FC = () => {
   const [isOpenTicketForm, setIsOpenTicketForm] = React.useState(false);
   const [isOpenLogin, setIsOpenLogin] = React.useState(false);
 
+  const onLoginClose = () => {
+    setIsOpenLogin(false);
+    window.location.reload();
+  };
+
+  const isAuth = Boolean(window.localStorage.getItem("token"));
+
+  const onLogout = () => {
+    window.localStorage.clear();
+    window.location.reload();
+  };
+
+  const onTicketFormOpen = () => {
+    if (isAuth) {
+      setIsOpenTicketForm(true);
+    } else {
+      setIsOpenLogin(true);
+    }
+  };
+
   return (
     <S.Wrapper>
       <Link to="/">
         <img src={mipt} height={32} />
       </Link>
-      <Button onClick={() => setIsOpenTicketForm(true)}>
-        Сообщить о проблеме
-      </Button>
-      <Button onClick={() => setIsOpenLogin(true)}>Войти</Button>
+      <Button onClick={onTicketFormOpen}>Сообщить о проблеме</Button>
+      {!isAuth && <Button onClick={() => setIsOpenLogin(true)}>Войти</Button>}
+      {isAuth && <Button onClick={onLogout}>Выйти</Button>}
       <Modal
         isOpen={isOpenTicketForm}
         toggleModal={() => setIsOpenTicketForm(false)}
@@ -36,7 +55,7 @@ const Header: React.FC = () => {
         toggleModal={() => setIsOpenLogin(false)}
         modalStyles={loginStyles}
       >
-        <Login />
+        <Login onClose={onLoginClose} />
       </Modal>
     </S.Wrapper>
   );

@@ -5,6 +5,12 @@ export const Wrapper = styled.div`
   max-width: 600px;
   margin: 64px auto 0;
   z-index: 10;
+
+  @media screen and (max-width: 800px) {
+    flex-direction: column;
+
+    margin: 160px auto 0;
+  }
 `;
 
 export const Layer = styled.div`

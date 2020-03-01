@@ -14,11 +14,16 @@ export const InputWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  & > p {
-    width: 100px;
+  @media screen and (max-width: 800px) {
+    flex-direction: column;
   }
 
-  & > * + * {
-    margin-left: 16px;
+  @media screen and (min-width: 800px) {
+    & > * + * {
+      margin-left: 16px;
+    }
+    & > p {
+      width: 100px;
+    }
   }
 `;

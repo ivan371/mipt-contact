@@ -5,6 +5,7 @@ export default {
     muted: "#778899",
     active: "#ff991a",
     light: "#FFFFE0",
+    white: "#FFFFFF",
     black: "#000000"
   }
 };

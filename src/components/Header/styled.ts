@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Button } from "./../styled";
 
 export const Wrapper = styled.div`
   position: fixed;
@@ -9,4 +10,16 @@ export const Wrapper = styled.div`
   justify-content: space-around;
   align-items: center;
   background-color: ${({ theme }) => theme.palette.content};
+
+  @media screen and (max-width: 800px) {
+    flex-direction: column;
+    ${Button} {
+      width: 100%;
+      margin-right: 16px;
+    }
+
+    & > * + * {
+      margin-top: 16px;
+    }
+  }
 `;

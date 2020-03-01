@@ -4,8 +4,9 @@ import * as S from "./styled";
 export interface IInputProps {
   isTextarea?: boolean;
   fullWidth?: boolean;
-  value?: string;
-  onChange?: (value: string) => void;
+  value: string;
+  onChange: (value: string) => void;
+  type?: string;
 }
 
 const Input: React.FC<IInputProps> = props => {

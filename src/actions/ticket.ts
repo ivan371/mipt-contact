@@ -66,7 +66,7 @@ export function ticketCreate({
     const formData = new FormData();
 
     formData.append("title", title);
-    formData.append("isPrivate", String(isPrivate));
+    formData.append("private", String(isPrivate));
     formData.append("description", String(description));
     formData.append("category", String(category));
 
