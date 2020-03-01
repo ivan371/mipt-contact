@@ -28,8 +28,12 @@ export const Section = styled.div`
   border-radius: 4px;
 `;
 
-export const Paragraph = styled.p<{ withoutSpace?: boolean }>`
-  color: ${({ theme }) => theme.palette.light};
+export const Paragraph = styled.p<{
+  withoutSpace?: boolean;
+  isDanger?: boolean;
+}>`
+  color: ${({ theme, isDanger }) =>
+    isDanger ? theme.palette.danger : theme.palette.light};
   font-family: "Roboto";
   font-size: 14px;
   font-weight: 600;

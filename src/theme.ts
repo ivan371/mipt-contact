@@ -6,6 +6,7 @@ export default {
     active: "#ff991a",
     light: "#FFFFE0",
     white: "#FFFFFF",
-    black: "#000000"
+    black: "#000000",
+    danger: "#800000"
   }
 };

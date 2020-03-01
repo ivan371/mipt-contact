@@ -51,8 +51,6 @@ const TicketListItem: React.FC<ITicketListItemProps> = ({ ticket }) => {
           likedByCurrentUser={likedByCurrentUser}
           ticketId={id!}
           creationTime={creationTime}
-          title={title}
-          description={description}
         />
       </Link>
     </Section>

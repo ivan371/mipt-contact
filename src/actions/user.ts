@@ -11,18 +11,26 @@ export interface IRegisterProps {
 
 export function register({ login, password, name }: IRegisterProps) {
   return async () => {
-    const formData = new FormData();
+    try {
+      const formData = new FormData();
 
-    formData.append("login", login);
-    formData.append("password", password);
-    formData.append("name", name);
+      formData.append("login", login);
+      formData.append("password", password);
+      formData.append("name", name);
 
-    const { token } = await ApiClientService("security/register", {
-      method: "POST",
-      body: formData
-    });
+      const { token } = await ApiClientService("security/register", {
+        method: "POST",
+        body: formData
+      });
 
-    window.localStorage.setItem("token", token);
+      if (token) {
+        window.localStorage.setItem("token", token);
+      } else {
+        throw "Не удалось зарегистрироваться";
+      }
+    } catch (err) {
+      throw "Не удалось зарегистрироваться";
+    }
   };
 }
 
@@ -33,17 +41,25 @@ export interface ILoginProps {
 
 export function authenticate({ login, password }: ILoginProps) {
   return async () => {
-    const formData = new FormData();
+    try {
+      const formData = new FormData();
 
-    formData.append("login", login);
-    formData.append("password", password);
+      formData.append("login", login);
+      formData.append("password", password);
 
-    const { token } = await ApiClientService("security/authenticate", {
-      method: "POST",
-      body: formData
-    });
+      const { token } = await ApiClientService("security/authenticate", {
+        method: "POST",
+        body: formData
+      });
 
-    window.localStorage.setItem("token", token);
+      if (token) {
+        window.localStorage.setItem("token", token);
+      } else {
+        throw "Не верное имя пользователя или пароль";
+      }
+    } catch (err) {
+      throw "Не верное имя пользователя или пароль";
+    }
   };
 }
 

@@ -14,16 +14,39 @@ const Login: React.FC<ILoginProps> = ({ onClose }) => {
   const [login, setLogin] = React.useState("");
   const [name, setName] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [error, setError] = React.useState("");
   const dispatch = useDispatch();
 
+  React.useEffect(() => {
+    setError("");
+  }, [name, password, login]);
+
   const onRegister = async () => {
-    await dispatch(register({ login, name, password }));
-    onClose();
+    if (!login || !password || !name) {
+      setError("Заполните все поля");
+
+      return;
+    }
+    try {
+      await dispatch(register({ login, name, password }));
+      onClose();
+    } catch (err) {
+      setError(err);
+    }
   };
 
   const onLogin = async () => {
-    await dispatch(authenticate({ login, password }));
-    onClose();
+    if (!login || !password) {
+      setError("Заполните все поля");
+
+      return;
+    }
+    try {
+      await dispatch(authenticate({ login, password }));
+      onClose();
+    } catch (err) {
+      setError(err);
+    }
   };
 
   if (isLogin) {
@@ -37,6 +60,7 @@ const Login: React.FC<ILoginProps> = ({ onClose }) => {
           <Paragraph>Пароль</Paragraph>
           <Input value={password} onChange={setPassword} type="password" />
         </S.InputWrapper>
+        {error && <Paragraph isDanger>{error}</Paragraph>}
         <Button onClick={() => setIsLogin(false)}>Зарегистрироваться</Button>
         <Button onClick={onLogin}>Войти</Button>
       </S.Wrapper>
@@ -57,6 +81,7 @@ const Login: React.FC<ILoginProps> = ({ onClose }) => {
         <Paragraph>Пароль</Paragraph>
         <Input value={password} onChange={setPassword} type="password" />
       </S.InputWrapper>
+      {error && <Paragraph isDanger>{error}</Paragraph>}
       <Button onClick={onRegister}>Зарегистрироваться</Button>
     </S.Wrapper>
   );
