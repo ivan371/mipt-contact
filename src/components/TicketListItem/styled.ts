@@ -11,6 +11,20 @@ export const Wrapper = styled.div`
 export const Inner = styled.div`
   display: flex;
   justify-content: space-between;
+
+  & > *:first-child {
+    max-width: 360px;
+  }
+
+  @media screen and (max-width: 800px) {
+    & > *:first-child {
+      min-width: 200px;
+    }
+  }
+
+  & > * + * {
+    align-self: flex-end;
+  }
 `;
 
 export const Main = styled.div`
